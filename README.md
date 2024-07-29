@@ -69,6 +69,12 @@ Ini adalah aplikasi E-Commerce berbasis Laravel yang memungkinkan pengguna untuk
     npm run dev
     ```
 
+    atau
+
+    ```bash
+    npm run build
+    ```
+
 9. Mulai server pengembangan:
 
     ```bash
