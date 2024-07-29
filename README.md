@@ -35,6 +35,12 @@ Ini adalah aplikasi E-Commerce berbasis Laravel yang memungkinkan pengguna untuk
     cp .env.example .env
     ```
 
+    atau
+
+    ```bash
+    copy .env.example .env
+    ```
+
 4. Tambahkan konfigurasi Midtrans ke file `.env`:
 
     ```env
@@ -57,7 +63,7 @@ Ini adalah aplikasi E-Commerce berbasis Laravel yang memungkinkan pengguna untuk
     php artisan migrate
     ```
 
-7. Jalankan seeder database untuk membuat akun admin:
+7. Jalankan seeder database untuk membuat akun:
 
     ```bash
     php artisan db:seed
