@@ -87,6 +87,24 @@ Ini adalah aplikasi E-Commerce berbasis Laravel yang memungkinkan pengguna untuk
     php artisan serve
     ```
 
+10. Konfigurasi ngrok untuk mengekspose server lokal Anda ke internet:
+
+    ```bash
+    ngrok http 8000
+    ```
+
+11. Salin URL ngrok yang diberikan (misalnya, `https://abc123.ngrok.io`) dan masukkan ke dalam Midtrans sebagai Payment Notification URL:
+
+    ```
+    https://<ngrok_url>/api/midtrans/notification
+    ```
+
+12. Akses aplikasi menggunakan URL ngrok yang diberikan:
+
+    ```
+    https://<ngrok_url>
+    ```
+
 ## Penggunaan
 
 ### Pengguna
