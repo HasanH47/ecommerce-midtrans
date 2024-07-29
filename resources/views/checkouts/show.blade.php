@@ -25,11 +25,13 @@
                     <span
                         class="badge @if ($order->status == 'completed') bg-success
                         @else
-                        bg-danger @endif rounded-pill">{{ $order->status ? 'Selesai' : 'Dibatalkan' }}
+                        bg-danger @endif rounded-pill">{{ $order->status == 'completed' ? 'Selesai' : 'Dibatalkan' }}
                     </span>
                 </h5>
                 @if ($order->status == 'completed')
                     <h5>Tanggal Pembayaran: {{ $order->updated_at->format('d M Y, H:i') }}</h5>
+                @else
+                    <h5>Tanggal Pembatalan: {{ $order->updated_at->format('d M Y, H:i') }}</h5>
                 @endif
             </div>
         </div>

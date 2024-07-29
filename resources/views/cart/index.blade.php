@@ -81,7 +81,7 @@
                 </div>
             @else
                 <div class="alert alert-info" role="alert">
-                    Keranjang belanja Anda kosong, silahkan <a href="{{ route('home') }}">belanja</a> terlebih dahulu.
+                    Keranjang belanja Anda kosong, silahkan <a href="{{ url('/#product') }}">belanja</a> terlebih dahulu.
                     Terima kasih :)
                 </div>
             @endif
