@@ -30,7 +30,7 @@
                                 @else 
                                     bg-danger @endif 
                                 rounded-pill">
-                                    {{ $order->status == 'completed' ? 'Selesai' : ($order->status == 'pending' ? 'Menunggu' : 'Dibatalkan') }}
+                                    {{ $order->status == 'completed' ? 'Selesai' : ($order->status == 'pending' ? 'Menunggu pembayaran' : 'Dibatalkan') }}
                                 </span>
                             </td>
                             <td>

@@ -19,6 +19,7 @@
                         </li>
                     @endforeach
                 </ul>
+                <h5>Status Pembayaran: <span class="badge bg-warning rounded-pill">{{ $order->status == 'pending' ? 'Menunggu pembayaran' : 'Selesai' }}</span></h5>
                 <h5>Total: Rp. {{ number_format($order->total_price, 0, ',', '.') }}</h5>
                 <button id="pay-button" class="btn btn-primary mt-3">Bayar Sekarang</button>
             </div>
