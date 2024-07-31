@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('customer_details', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('order_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email');
             $table->string('phone');
             $table->text('address');
+            $table->string('city');
+            $table->string('postal_code');
+            $table->string('country_code');
             $table->timestamps();
         });
     }

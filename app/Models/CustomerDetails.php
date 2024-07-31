@@ -12,9 +12,13 @@ class CustomerDetails extends Model
 
     protected $fillable = [
         'order_id',
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'phone',
         'address',
+        'city',
+        'postal_code',
+        'country_code'
     ];
 }

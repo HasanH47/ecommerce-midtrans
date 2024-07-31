@@ -10,10 +10,18 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label for="name">Nama</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" value="{{ old('name') }}" required>
-                        @error('name')
+                        <label for="first_name">Nama Depan</label>
+                        <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name"
+                            name="first_name" value="{{ old('first_name') }}" required>
+                        @error('first_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="last_name">Nama Belakang</label>
+                        <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"
+                            name="last_name" value="{{ old('last_name') }}" required>
+                        @error('last_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -41,8 +49,47 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="city">Kota</label>
+                                <input type="text" class="form-control @error('city') is-invalid @enderror"
+                                    id="city" name="city" value="{{ old('city') }}" required>
+                                @error('city')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="postal_code">Kode Pos</label>
+                                <input type="text" class="form-control @error('postal_code') is-invalid @enderror"
+                                    id="postal_code" name="postal_code" value="{{ old('postal_code') }}" required>
+                                @error('postal_code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="country_code">Kode Negara</label>
+                        <select class="form-control @error('country_code') is-invalid @enderror" id="country_code"
+                            name="country_code" required>
+                            <option value="">Pilih Negara</option>
+                            @foreach ($countries as $code => $name)
+                                <option value="{{ $code }}" {{ old('country_code') == $code ? 'selected' : '' }}>
+                                    {{ $name }} - {{ $code }}</option>
+                            @endforeach
+                        </select>
+                        @error('country_code')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <button type="submit" class="btn btn-primary">Lanjutkan</button>
                 </div>
+
                 <div class="col-md-6">
                     <h4>Ringkasan Pesanan</h4>
                     <ul class="list-group mb-3">

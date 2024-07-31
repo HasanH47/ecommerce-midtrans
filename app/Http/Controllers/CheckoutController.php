@@ -8,6 +8,8 @@ use App\Models\CustomerDetails;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Midtrans\Config;
 use Midtrans\Notification;
@@ -47,18 +49,28 @@ class CheckoutController extends Controller
             $totalPrice = $cartItems->sum(function ($item) {
                 return $item->product->price * $item->quantity;
             });
+            $countries = Cache::remember('countries_list', 86400, function () {
+                $response = Http::get('https://restcountries.com/v3.1/all');
+                return collect($response->json())
+                    ->pluck('name.common', 'cca3')
+                    ->sort();
+            });
         }
 
-        return view('checkouts.checkout', compact('cartItems', 'totalPrice'));
+        return view('checkouts.checkout', compact('cartItems', 'totalPrice', 'countries'));
     }
 
     public function processCheckout(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'address' => 'required|string',
+            'city' => 'required|string',
+            'postal_code' => 'required|string|max:15',
+            'country_code' => 'required|string|max:3',
         ]);
 
         $order_id = 'ORD-' . date('Ymd') . '-' . Str::upper(Str::random(8));
@@ -78,10 +90,14 @@ class CheckoutController extends Controller
 
         CustomerDetails::create([
             'order_id' => $order->id,
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
+            'city' => $request->city,
+            'postal_code' => $request->postal_code,
+            'country_code' => $request->country_code,
         ]);
 
         $cartItems = Cart::where('user_id', Auth::user()->id)->with('product')->get();
@@ -121,19 +137,34 @@ class CheckoutController extends Controller
                         'order_id' => $order->order_id,
                         'gross_amount' => $order->total_price,
                     ],
+                    'item_details' =>
+                    $itemDetails->toArray(),
                     'customer_details' => [
                         'first_name' => $order->customerDetails->name,
+                        'last_name' => $order->customerDetails->last_name,
                         'email' => $order->customerDetails->email,
                         'phone' => $order->customerDetails->phone,
-                        // 'billing_address' => $order->customerDetails->address,
+                        'billing_address' => [
+                            'first_name' => $order->customerDetails->name,
+                            'last_name' => $order->customerDetails->last_name,
+                            'email' => $order->customerDetails->email,
+                            'phone' => $order->customerDetails->phone,
+                            'address' => $order->customerDetails->address,
+                            'city' => $order->customerDetails->city,
+                            'postal_code' => $order->customerDetails->postal_code,
+                            'country_code' => $order->customerDetails->country_code,
+                        ],
+                        'shipping_address' => [
+                            'first_name' => $order->customerDetails->name,
+                            'last_name' => $order->customerDetails->last_name,
+                            'email' => $order->customerDetails->email,
+                            'phone' => $order->customerDetails->phone,
+                            'address' => $order->customerDetails->address,
+                            'city' => $order->customerDetails->city,
+                            'postal_code' => $order->customerDetails->postal_code,
+                            'country_code' => $order->customerDetails->country_code,
+                        ],
                     ],
-                    'item_details' => $itemDetails->toArray(),
-                    // 'shipping_address' => [
-                    //     'first_name' => $order->customerDetails->name,
-                    //     'email' => $order->customerDetails->email,
-                    //     'address' => $order->customerDetails->address,
-                    //     'phone' => $order->customerDetails->phone,
-                    // ],
                     'payment_type' => 'bank_transfer',
                     'enabled_payments' => [
                         'bca_va',
