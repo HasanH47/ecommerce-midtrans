@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 29, 2024 at 02:53 AM
+-- Generation Time: Jul 31, 2024 at 01:47 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.3.4
 
@@ -69,10 +69,14 @@ CREATE TABLE `carts` (
 CREATE TABLE `customer_details` (
   `id` char(26) COLLATE utf8mb4_unicode_ci NOT NULL,
   `order_id` char(26) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `postal_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -256,8 +260,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-('01J3Y6FWM8XMM9K23M5HAGPGY0', 'Admin User', 'admin@example.com', '2024-07-29 02:53:09', '$2y$12$m8pEg/INWPF3eBdE9DQa2OIR7GDxQx3o47hN8K43sMZrIM/53zZJ6', 'admin', NULL, '2024-07-29 02:53:09', '2024-07-29 02:53:09'),
-('01J3Y6FWM8XMM9K23M5HAGPGY1', 'Regular User', 'user@example.com', '2024-07-29 02:53:09', '$2y$12$KZY6zpM287D/pj93UuEcIO3KUMXH2HVjk1QKknk7KUYoBlwHC4.cS', 'user', NULL, '2024-07-29 02:53:09', '2024-07-29 02:53:09');
+('01J437GB2WRMAFW61GNPXP851T', 'Admin User', 'admin@example.com', '2024-07-31 01:47:04', '$2y$12$ZUsohHIV/vmGtnsupeaLHuE5QZWbNQO4gXSRa7ETdr7CscZZ30UEi', 'admin', NULL, '2024-07-31 01:47:04', '2024-07-31 01:47:04'),
+('01J437GB2WRMAFW61GNPXP851V', 'Regular User', 'user@example.com', '2024-07-31 01:47:04', '$2y$12$2i/pY7DkKMr3sIH05XhlSOtuUe4Pt777fRTH6SE0nM1d7VCl35kry', 'user', NULL, '2024-07-31 01:47:05', '2024-07-31 01:47:05');
 
 --
 -- Indexes for dumped tables
